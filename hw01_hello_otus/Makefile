@@ -5,7 +5,7 @@ all: lint test ## Run lint, test
 .PHONY: lint
 lint: ## Run linters
 	@printf "\n*** Running linters ***\n\n"
-	@docker run --rm -v $(PWD):/app -w /app golangci/golangci-lint:v1.49.0 golangci-lint run -v
+	@docker run --rm -v $(PWD):/app -w /app golangci/golangci-lint:v1.49.0 golangci-lint run -v -c ./.mygolangci.yml
 
 test: ## Run tests
 	@printf "\n*** Running tests ***\n\n"
