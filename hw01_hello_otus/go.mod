@@ -1,4 +1,4 @@
-module github.com/chichavl/hw01_hello_otus
+module github.com/Chichavl/golang_home_work/hw01_hello_otus
 
 go 1.16
 
