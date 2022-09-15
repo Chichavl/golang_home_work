@@ -27,7 +27,7 @@ cover: ## Generate coverage.html
 
 .PHONY: clear 
 clear: ## Remove unnecessary go modules & files
-	@ rm coverage.html c.out || true
+	@ rm coverage.html c.out .sync || true
 	@ go mod tidy
 
 help: ## Show this help.
