@@ -57,7 +57,7 @@ var tests = []struct {
 	},
 	{
 		desc:  "Word sort working",
-		input: `apple apple apple apple apple apple apple apple apple apple pear`,
+		input: `pear apple apple apple apple apple apple apple apple apple apple`,
 		expected: []string{
 			"apple",
 			"pear",
