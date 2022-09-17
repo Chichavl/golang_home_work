@@ -5,11 +5,15 @@ import (
 	"strings"
 )
 
-type freqDict map[string]int
-type freqSlice struct {
-	word  string
-	count int
-}
+const maxResultSliceLength = 10
+
+type (
+	freqDict  map[string]int
+	freqSlice struct {
+		word  string
+		count int
+	}
+)
 
 func newFreqSlice(w string) *freqSlice {
 	return &freqSlice{
@@ -54,12 +58,14 @@ func (w *word) sort() []string {
 		}
 		return w.wcSlice[i].count > w.wcSlice[j].count
 	})
+
 	var slc []freqSlice
-	if len(w.wcSlice) <= 10 {
+	if len(w.wcSlice) <= maxResultSliceLength {
 		slc = w.wcSlice
 	} else {
-		slc = w.wcSlice[:10]
+		slc = w.wcSlice[:maxResultSliceLength]
 	}
+
 	result := []string{}
 	for _, val := range slc {
 		result = append(result, val.word)
