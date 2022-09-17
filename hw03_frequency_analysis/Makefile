@@ -6,7 +6,7 @@ GID := $(shell id -g)
 all: lint test ## Run lint, test
 
 .PHONY: gofumpt
-format:
+format: ## Run lint formaters (gofumpt)
 	@docker run --rm -u "$(UID):$(UID)" -v "$(PWD)":/local -w /local vejed/gofumpt -w .
 
 .PHONY: lint
