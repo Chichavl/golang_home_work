@@ -54,7 +54,12 @@ func (w *word) sort() []string {
 		}
 		return w.wcSlice[i].count > w.wcSlice[j].count
 	})
-	slc := w.wcSlice[:10]
+	var slc []freqSlice
+	if len(w.wcSlice) <= 10 {
+		slc = w.wcSlice
+	} else {
+		slc = w.wcSlice[:10]
+	}
 	result := []string{}
 	for _, val := range slc {
 		result = append(result, val.word)
