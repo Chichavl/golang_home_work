@@ -72,7 +72,7 @@ var tests = []struct {
 		},
 	},
 	{
-		desc: "text with carret return",
+		desc: "Text with carret return",
 		input: `apple apple apple apple apple 
 	apple apple     pear
 	apple apple apple`,
