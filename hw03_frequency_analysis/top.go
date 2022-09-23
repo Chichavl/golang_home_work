@@ -7,86 +7,35 @@ import (
 
 const maxResultSliceLength = 10
 
-type (
-	freqDict  map[string]int
-	freqSlice struct {
-		word  string
-		count int
-	}
-)
-
-func newFreqSlice(w string) *freqSlice {
-	return &freqSlice{
-		word:  w,
-		count: 1,
-	}
-}
-
-type word struct {
-	wcDict  freqDict
-	wcSlice []freqSlice
-}
-
-func newWord() *word {
-	return &word{
-		wcDict:  make(freqDict),
-		wcSlice: []freqSlice{},
-	}
-}
-
-func (w *word) add(s string) {
-	if _, ok := w.wcDict[s]; ok {
-		w.wcDict[s]++
-	} else {
-		w.wcDict[s] = 1
-		w.wcSlice = append(w.wcSlice, *newFreqSlice(s))
-	}
-}
-
-func (w *word) populate() {
-	for i, word := range w.wcSlice {
-		w.wcSlice[i].count = w.wcDict[word.word]
-	}
-	// clear map
-	w.wcDict = make(freqDict)
-}
-
-func (w *word) sort() []string {
-	sort.Slice(w.wcSlice, func(i, j int) bool {
-		if w.wcSlice[i].count == w.wcSlice[j].count {
-			return w.wcSlice[i].word < w.wcSlice[j].word
-		}
-		return w.wcSlice[i].count > w.wcSlice[j].count
-	})
-
-	var slc []freqSlice
-	if len(w.wcSlice) <= maxResultSliceLength {
-		slc = w.wcSlice
-	} else {
-		slc = w.wcSlice[:maxResultSliceLength]
-	}
-
-	result := []string{}
-	for _, val := range slc {
-		result = append(result, val.word)
-	}
-
-	return result
-}
-
 func Top10(str string) []string {
 	if len(str) == 0 {
 		return []string{}
 	}
 
-	stat := newWord()
 	words := strings.Fields(str)
 
+	wcDict := make(map[string]int, len(words))
+	wcSlice := []string{}
+
 	for _, word := range words {
-		stat.add(word)
+		wcDict[word]++
 	}
 
-	stat.populate()
+	for k := range wcDict {
+		wcSlice = append(wcSlice, k)
+	}
 
-	return stat.sort()
+	sort.Slice(wcSlice, func(i, j int) bool {
+		if wcDict[wcSlice[i]] == wcDict[wcSlice[j]] {
+			return wcSlice[i] < wcSlice[j]
+		}
+
+		return wcDict[wcSlice[i]] > wcDict[wcSlice[j]]
+	})
+
+	if len(wcSlice) < maxResultSliceLength {
+		return wcSlice
+	}
+
+	return wcSlice[:maxResultSliceLength]
 }
