@@ -96,7 +96,6 @@ func TestCache(t *testing.T) {
 		require.False(t, ok)
 		_, ok = c.Get("ccc")
 		require.False(t, ok)
-
 	})
 
 	t.Run("purge logic", func(t *testing.T) {
